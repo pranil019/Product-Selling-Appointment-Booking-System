@@ -1,0 +1,30 @@
+{
+  "name": "used-items-booking-portal",
+  "version": "1.0.0",
+  "description": "Online appointment booking and used vehicle marketplace built with Node.js, Express, and MongoDB.",
+  "main": "server.js",
+  "scripts": {
+    "dev": "nodemon server.js",
+    "start": "node server.js"
+  },
+  "keywords": [
+    "nodejs",
+    "express",
+    "mongodb",
+    "appointment-booking",
+    "used-items-marketplace"
+  ],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^16.4.5",
+    "ejs": "^3.1.10",
+    "express": "^4.21.2",
+    "method-override": "^3.0.0",
+    "mongoose": "^8.9.5",
+    "morgan": "^1.10.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.9"
+  }
+}

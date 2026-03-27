@@ -1,0 +1,114 @@
+<%- include("../partials/head") %>
+<%- include("../partials/header") %>
+
+<main class="section">
+  <div class="container">
+    <div class="page-title-row">
+      <div>
+        <h1>Seller dashboard</h1>
+        <p>Track your listings and respond to buyer appointments.</p>
+      </div>
+    </div>
+
+    <form class="filter-form form-card compact-form" method="GET" action="/seller/dashboard">
+      <label>
+        Seller Email
+        <input type="email" name="email" value="<%= sellerEmail %>" placeholder="seller@example.com" required />
+      </label>
+      <button class="btn btn-primary" type="submit">Load Dashboard</button>
+    </form>
+
+    <% if (!sellerEmail) { %>
+      <div class="empty-state">
+        <p>Enter the seller email used while creating listings to open the seller dashboard.</p>
+      </div>
+    <% } else { %>
+      <section class="section-block">
+        <div class="section-title-row">
+          <h2>Your listings</h2>
+          <span><%= listings.length %> items</span>
+        </div>
+        <div class="card-grid">
+          <% if (listings.length === 0) { %>
+            <div class="empty-state">
+              <p>No listings found for this seller email.</p>
+            </div>
+          <% } %>
+
+          <% listings.forEach((item) => { %>
+            <article class="listing-card">
+              <img src="<%= item.imageUrl %>" alt="<%= item.title %>" />
+              <div class="listing-body">
+                <div class="badge-row">
+                  <span class="badge"><%= item.category %></span>
+                  <span class="badge badge-muted"><%= item.status %></span>
+                </div>
+                <h3><%= item.title %></h3>
+                <p><%= item.brand %> - <%= item.model %></p>
+                <p class="price">Rs. <%= item.price.toLocaleString() %></p>
+              </div>
+            </article>
+          <% }) %>
+        </div>
+      </section>
+
+      <section class="section-block">
+        <div class="section-title-row">
+          <h2>Buyer appointment requests</h2>
+          <span><%= appointments.length %> requests</span>
+        </div>
+
+        <div class="table-card">
+          <table>
+            <thead>
+              <tr>
+                <th>Buyer</th>
+                <th>Item</th>
+                <th>Schedule</th>
+                <th>Buyer Note</th>
+                <th>Seller Decision</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% if (appointments.length === 0) { %>
+                <tr>
+                  <td colspan="5">No appointment requests for this seller yet.</td>
+                </tr>
+              <% } %>
+
+              <% appointments.forEach((appointment) => { %>
+                <tr>
+                  <td>
+                    <strong><%= appointment.buyerName %></strong><br />
+                    <span><%= appointment.buyerEmail %></span><br />
+                    <span><%= appointment.phone %></span>
+                  </td>
+                  <td><%= appointment.item ? appointment.item.title : "Removed Item" %></td>
+                  <td><%= new Date(appointment.appointmentDate).toLocaleString() %></td>
+                  <td><%= appointment.message || "No note" %></td>
+                  <td>
+                    <form action="/appointments/<%= appointment._id %>/status?_method=PATCH" method="POST" class="inline-form">
+                      <input type="hidden" name="sellerEmail" value="<%= sellerEmail %>" />
+                      <select name="status">
+                        <% ["Pending", "Accepted", "Rejected", "Completed"].forEach((status) => { %>
+                          <option value="<%= status %>" <%= appointment.status === status ? "selected" : "" %>>
+                            <%= status %>
+                          </option>
+                        <% }) %>
+                      </select>
+                      <textarea name="sellerResponse" rows="3" placeholder="Add meeting location, timing changes, reason for rejection, etc."><%= appointment.sellerResponse %></textarea>
+                      <button class="btn btn-secondary" type="submit">Save Reply</button>
+                    </form>
+                  </td>
+                </tr>
+              <% }) %>
+            </tbody>
+          </table>
+        </div>
+      </section>
+    <% } %>
+  </div>
+</main>
+
+<%- include("../partials/footer") %>
+<%- include("../partials/end") %>

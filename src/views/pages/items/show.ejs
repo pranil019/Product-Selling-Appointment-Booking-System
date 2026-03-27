@@ -1,0 +1,59 @@
+<%- include("../../partials/head") %>
+<%- include("../../partials/header") %>
+
+<main class="section">
+  <div class="container detail-grid">
+    <section class="detail-card">
+      <img class="detail-image" src="<%= item.imageUrl %>" alt="<%= item.title %>" />
+      <div class="detail-content">
+        <div class="badge-row">
+          <span class="badge"><%= item.category %></span>
+          <span class="badge badge-muted"><%= item.status %></span>
+        </div>
+        <h1><%= item.title %></h1>
+        <p class="price">Rs. <%= item.price.toLocaleString() %></p>
+        <p><strong>Brand:</strong> <%= item.brand %></p>
+        <p><strong>Model:</strong> <%= item.model %></p>
+        <p><strong>Year:</strong> <%= item.year %></p>
+        <p><strong>Condition:</strong> <%= item.condition %></p>
+        <p><strong>Fuel Type:</strong> <%= item.fuelType %></p>
+        <p><strong>Location:</strong> <%= item.location %></p>
+        <p><strong>Seller:</strong> <%= item.sellerName %> (<%= item.sellerEmail %>)</p>
+        <p class="description"><%= item.description %></p>
+      </div>
+    </section>
+
+    <aside class="form-card">
+      <h2>Book an appointment</h2>
+      <p>Schedule a visit or inspection before finalizing the purchase.</p>
+
+      <form action="/appointments/<%= item._id %>" method="POST">
+        <label>
+          Buyer Name
+          <input type="text" name="buyerName" required />
+        </label>
+        <label>
+          Buyer Email
+          <input type="email" name="buyerEmail" required />
+        </label>
+        <label>
+          Phone Number
+          <input type="text" name="phone" required />
+        </label>
+        <label>
+          Appointment Date & Time
+          <input type="datetime-local" name="appointmentDate" required />
+        </label>
+        <label>
+          Message
+          <textarea name="message" rows="4" placeholder="Ask for documents, price discussion, test drive, etc."></textarea>
+        </label>
+
+        <button class="btn btn-primary" type="submit">Book Appointment</button>
+      </form>
+    </aside>
+  </div>
+</main>
+
+<%- include("../../partials/footer") %>
+<%- include("../../partials/end") %>

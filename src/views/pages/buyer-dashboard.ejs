@@ -1,0 +1,98 @@
+<%- include("../partials/head") %>
+<%- include("../partials/header") %>
+
+<main class="section">
+  <div class="container">
+    <div class="page-title-row">
+      <div>
+        <h1>Buyer dashboard</h1>
+        <p>Review your booking requests and track the seller response.</p>
+      </div>
+    </div>
+
+    <form class="filter-form form-card compact-form" method="GET" action="/buyer/dashboard">
+      <label>
+        Buyer Email
+        <input type="email" name="email" value="<%= buyerEmail %>" placeholder="buyer@example.com" required />
+      </label>
+      <button class="btn btn-primary" type="submit">Load Dashboard</button>
+    </form>
+
+    <% if (!buyerEmail) { %>
+      <div class="empty-state">
+        <p>Enter the buyer email used while booking appointments to open the buyer dashboard.</p>
+      </div>
+    <% } else { %>
+      <section class="section-block">
+        <div class="section-title-row">
+          <h2>Your appointment status</h2>
+          <span><%= appointments.length %> bookings</span>
+        </div>
+
+        <div class="table-card">
+          <table>
+            <thead>
+              <tr>
+                <th>Item</th>
+                <th>Appointment</th>
+                <th>Status</th>
+                <th>Seller Reply</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% if (appointments.length === 0) { %>
+                <tr>
+                  <td colspan="4">No appointments found for this buyer email.</td>
+                </tr>
+              <% } %>
+
+              <% appointments.forEach((appointment) => { %>
+                <tr>
+                  <td>
+                    <strong><%= appointment.item ? appointment.item.title : "Removed Item" %></strong><br />
+                    <% if (appointment.item) { %>
+                      <span><%= appointment.item.location %></span>
+                    <% } %>
+                  </td>
+                  <td><%= new Date(appointment.appointmentDate).toLocaleString() %></td>
+                  <td><span class="badge"><%= appointment.status %></span></td>
+                  <td><%= appointment.sellerResponse || "Waiting for seller response." %></td>
+                </tr>
+              <% }) %>
+            </tbody>
+          </table>
+        </div>
+      </section>
+    <% } %>
+
+    <section class="section-block">
+      <div class="section-title-row">
+        <h2>Global sample listings</h2>
+        <span>Optional external feed</span>
+      </div>
+      <div class="card-grid">
+        <% if (globalListings.length === 0) { %>
+          <div class="empty-state">
+            <p>External sample listings are not available right now.</p>
+          </div>
+        <% } %>
+
+        <% globalListings.forEach((item) => { %>
+          <article class="listing-card">
+            <img src="<%= item.imageUrl %>" alt="<%= item.title %>" />
+            <div class="listing-body">
+              <span class="badge">External</span>
+              <h3><%= item.title %></h3>
+              <p><%= item.brand %></p>
+              <p class="price">$ <%= item.price %></p>
+              <p><%= item.description %></p>
+            </div>
+          </article>
+        <% }) %>
+      </div>
+    </section>
+  </div>
+</main>
+
+<%- include("../partials/footer") %>
+<%- include("../partials/end") %>

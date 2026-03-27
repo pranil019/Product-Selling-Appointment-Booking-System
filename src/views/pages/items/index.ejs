@@ -1,0 +1,63 @@
+<%- include("../../partials/head") %>
+<%- include("../../partials/header") %>
+
+<main class="section">
+  <div class="container">
+    <div class="page-title-row">
+      <div>
+        <span class="eyebrow">Marketplace</span>
+        <h1>Browse all listings</h1>
+      </div>
+      <a class="btn btn-primary" href="/items/new">Add Listing</a>
+    </div>
+
+    <form class="filter-form" method="GET" action="/items">
+      <select name="category">
+        <option value="">All Categories</option>
+        <% ["Car", "Bike", "Scooter", "Electronics", "Furniture", "Other"].forEach((category) => { %>
+          <option value="<%= category %>" <%= filters.category === category ? "selected" : "" %>>
+            <%= category %>
+          </option>
+        <% }) %>
+      </select>
+
+      <select name="status">
+        <option value="">All Status</option>
+        <% ["Available", "Reserved", "Sold"].forEach((status) => { %>
+          <option value="<%= status %>" <%= filters.status === status ? "selected" : "" %>>
+            <%= status %>
+          </option>
+        <% }) %>
+      </select>
+
+      <button class="btn btn-secondary" type="submit">Apply Filters</button>
+    </form>
+
+    <div class="card-grid">
+      <% if (items.length === 0) { %>
+        <div class="empty-state">
+          <p>No matching listings found. Try changing filters or add a new product.</p>
+        </div>
+      <% } %>
+
+      <% items.forEach((item) => { %>
+        <article class="listing-card">
+          <img src="<%= item.imageUrl %>" alt="<%= item.title %>" />
+          <div class="listing-body">
+            <div class="badge-row">
+              <span class="badge"><%= item.category %></span>
+              <span class="badge badge-muted"><%= item.condition %></span>
+            </div>
+            <h3><%= item.title %></h3>
+            <p><%= item.location %></p>
+            <p class="price">Rs. <%= item.price.toLocaleString() %></p>
+            <a class="text-link" href="/items/<%= item._id %>">View Details</a>
+          </div>
+        </article>
+      <% }) %>
+    </div>
+  </div>
+</main>
+
+<%- include("../../partials/footer") %>
+<%- include("../../partials/end") %>

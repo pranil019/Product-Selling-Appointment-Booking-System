@@ -1,0 +1,113 @@
+<%- include("../partials/head") %>
+<%- include("../partials/header") %>
+
+<main>
+  <section class="hero">
+    <div class="container hero-grid">
+      <div>
+        <h1>Buy used vehicles and book inspection appointments online.</h1>
+        <p>
+          This portal allows sellers to post listings and buyers to schedule
+          appointments before purchasing a car, bike, scooter, or other used item.
+        </p>
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="/items">Explore Listings</a>
+          <a class="btn btn-secondary" href="/items/new">Create Listing</a>
+          <a class="btn btn-secondary" href="/buyer/dashboard">Buyer Dashboard</a>
+          <a class="btn btn-secondary" href="/seller/dashboard">Seller Dashboard</a>
+        </div>
+      </div>
+      <div class="stats-card">
+        <h2>Project Snapshot</h2>
+        <div class="stat-list">
+          <article>
+            <strong><%= stats.totalItems %></strong>
+            <span>Total Listings</span>
+          </article>
+          <article>
+            <strong><%= stats.availableItems %></strong>
+            <span>Available Items</span>
+          </article>
+          <article>
+            <strong><%= stats.totalAppointments %></strong>
+            <span>Appointments</span>
+          </article>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="section-title-row">
+        <h2>Featured Listings</h2>
+        <a href="/items">View All</a>
+      </div>
+
+      <div class="card-grid">
+        <% if (featuredItems.length === 0) { %>
+          <div class="empty-state">
+            <p>No listings found yet. Add your first item to populate the portal.</p>
+          </div>
+        <% } %>
+
+        <% featuredItems.forEach((item) => { %>
+          <article class="listing-card">
+            <img src="<%= item.imageUrl %>" alt="<%= item.title %>" />
+            <div class="listing-body">
+              <div class="badge-row">
+                <span class="badge"><%= item.category %></span>
+                <span class="badge badge-muted"><%= item.status %></span>
+              </div>
+              <h3><%= item.title %></h3>
+              <p><%= item.brand %> <%= item.model %> - <%= item.year %></p>
+              <p class="price">Rs. <%= item.price.toLocaleString() %></p>
+              <a class="text-link" href="/items/<%= item._id %>">View Details</a>
+            </div>
+          </article>
+        <% }) %>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-alt">
+    <div class="container">
+      <div class="section-title-row">
+        <h2>Recent Appointments</h2>
+        <a href="/seller/dashboard">Open Seller Dashboard</a>
+      </div>
+
+      <div class="table-card">
+        <table>
+          <thead>
+            <tr>
+              <th>Buyer</th>
+              <th>Item</th>
+              <th>Date</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% if (latestAppointments.length === 0) { %>
+              <tr>
+                <td colspan="4">No appointments booked yet.</td>
+              </tr>
+            <% } %>
+
+            <% latestAppointments.forEach((appointment) => { %>
+              <tr>
+                <td><%= appointment.buyerName %></td>
+                <td><%= appointment.item ? appointment.item.title : "Removed Item" %></td>
+                <td><%= new Date(appointment.appointmentDate).toLocaleString() %></td>
+                <td><%= appointment.status %></td>
+              </tr>
+            <% }) %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+</main>
+
+<%- include("../partials/footer") %>
+<%- include("../partials/end") %>

@@ -1,0 +1,86 @@
+<%- include("../../partials/head") %>
+<%- include("../../partials/header") %>
+
+<main class="section">
+  <div class="container narrow-container">
+    <div class="page-title-row">
+      <div>
+        <span class="eyebrow">Seller Form</span>
+        <h1>Create a new listing</h1>
+      </div>
+    </div>
+
+    <form class="form-card" action="/items" method="POST">
+      <div class="form-grid">
+        <label>
+          Title
+          <input type="text" name="title" required />
+        </label>
+        <label>
+          Category
+          <select name="category" required>
+            <option value="Car">Car</option>
+            <option value="Bike">Bike</option>
+            <option value="Scooter">Scooter</option>
+            <option value="Electronics">Electronics</option>
+            <option value="Furniture">Furniture</option>
+            <option value="Other">Other</option>
+          </select>
+        </label>
+        <label>
+          Price
+          <input type="number" name="price" min="0" required />
+        </label>
+        <label>
+          Location
+          <input type="text" name="location" required />
+        </label>
+        <label>
+          Brand
+          <input type="text" name="brand" required />
+        </label>
+        <label>
+          Model
+          <input type="text" name="model" required />
+        </label>
+        <label>
+          Year
+          <input type="number" name="year" min="1990" max="2035" required />
+        </label>
+        <label>
+          Condition
+          <select name="condition" required>
+            <option value="Excellent">Excellent</option>
+            <option value="Good">Good</option>
+            <option value="Average">Average</option>
+          </select>
+        </label>
+        <label>
+          Fuel Type
+          <input type="text" name="fuelType" placeholder="Petrol / Diesel / EV / N/A" />
+        </label>
+        <label>
+          Image URL
+          <input type="url" name="imageUrl" placeholder="https://example.com/image.jpg" />
+        </label>
+        <label>
+          Seller Name
+          <input type="text" name="sellerName" required />
+        </label>
+        <label>
+          Seller Email
+          <input type="email" name="sellerEmail" required />
+        </label>
+        <label class="full-width">
+          Description
+          <textarea name="description" rows="5" required></textarea>
+        </label>
+      </div>
+
+      <button class="btn btn-primary" type="submit">Create Listing</button>
+    </form>
+  </div>
+</main>
+
+<%- include("../../partials/footer") %>
+<%- include("../../partials/end") %>
