@@ -14,7 +14,7 @@ const loadHomePage = async (req, res) => {
   ]);
 
   res.render("pages/home", {
-    title: "Used Vehicle Hub",
+    title: "BookIt",
     featuredItems,
     latestAppointments,
     stats: {

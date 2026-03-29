@@ -1,5 +1,5 @@
 {
-  "name": "used-items-booking-portal",
+  "name": "bookit",
   "version": "1.0.0",
   "description": "Online appointment booking and used vehicle marketplace built with Node.js, Express, and MongoDB.",
   "main": "server.js",

@@ -1,9 +1,9 @@
-# Used Vehicle Hub
+# BookIt
 
 This is a Node.js + Express + MongoDB project for:
 
 - Online appointment booking
-- E-commerce portal for used items sales
+- E-commerce platform for used items sales
 - Example focus: car, bike, scooter, and similar products
 
 ## Project Features
@@ -76,7 +76,7 @@ Use this connection string in `.env` if MongoDB is installed locally:
 
 ```env
 PORT=3000
-MONGODB_URI=mongodb://127.0.0.1:27017/used-items-portal
+MONGODB_URI=mongodb://127.0.0.1:27017/bookit
 ```
 
 ## Main Pages
