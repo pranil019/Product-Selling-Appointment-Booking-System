@@ -2,36 +2,43 @@
 <%- include("../partials/header") %>
 
 <main>
-  <section class="hero">
-    <div class="container hero-grid">
-      <div>
-        <h1>Buy used vehicles and book inspection appointments online.</h1>
-        <p>
-          BookIt allows sellers to post listings and buyers to schedule
-          appointments before purchasing a car, bike, scooter, or other used item.
-        </p>
-        <div class="hero-actions">
-          <a class="btn btn-primary" href="/items">Explore Listings</a>
-          <a class="btn btn-secondary" href="/items/new">Create Listing</a>
-          <a class="btn btn-secondary" href="/buyer/dashboard">Buyer Dashboard</a>
-          <a class="btn btn-secondary" href="/seller/dashboard">Seller Dashboard</a>
+  <section class="hero hero-home">
+    <div class="container">
+      <div class="hero-stage">
+        <div class="hero-copy">
+          <span class="eyebrow">Appointment Booking Marketplace</span>
+          <h1>Buy used vehicles and book inspection appointments online.</h1>
+          <p>
+            BookIt helps sellers publish listings and gives buyers one clean place
+            to schedule inspections before purchasing a car, bike, scooter, or other used item.
+          </p>
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="/items">Explore Listings</a>
+            <a class="btn btn-secondary" href="/items/new">Create Listing</a>
+          </div>
         </div>
-      </div>
-      <div class="stats-card">
-        <h2>Project Snapshot</h2>
-        <div class="stat-list">
-          <article>
-            <strong><%= stats.totalItems %></strong>
-            <span>Total Listings</span>
-          </article>
-          <article>
-            <strong><%= stats.availableItems %></strong>
-            <span>Available Items</span>
-          </article>
-          <article>
-            <strong><%= stats.totalAppointments %></strong>
-            <span>Appointments</span>
-          </article>
+
+        <div class="hero-quick-links" aria-label="Quick links">
+          <a class="hero-chip" href="/buyer/dashboard">Buyer Dashboard</a>
+          <a class="hero-chip" href="/seller/dashboard">Seller Dashboard</a>
+        </div>
+
+        <div class="stats-card hero-stats">
+          <h2>Project Snapshot</h2>
+          <div class="stat-list">
+            <article>
+              <strong><%= stats.totalItems %></strong>
+              <span>Total Listings</span>
+            </article>
+            <article>
+              <strong><%= stats.availableItems %></strong>
+              <span>Available Items</span>
+            </article>
+            <article>
+              <strong><%= stats.totalAppointments %></strong>
+              <span>Appointments</span>
+            </article>
+          </div>
         </div>
       </div>
     </div>
