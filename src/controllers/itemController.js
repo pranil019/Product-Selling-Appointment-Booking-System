@@ -28,7 +28,9 @@ const loadCreateItemPage = (req, res) => {
 };
 
 const createItem = async (req, res) => {
-  const item = await Item.create(req.body);
+  const body = req.validated?.body || req.body;
+  // Use allowlisted, validated fields (avoid saving unexpected fields from req.body).
+  const item = await Item.create(body);
   res.redirect(`/seller/dashboard?email=${encodeURIComponent(item.sellerEmail)}`);
 };
 

@@ -15,6 +15,7 @@ const appointmentSchema = new mongoose.Schema(
     buyerEmail: {
       type: String,
       required: true,
+      lowercase: true,
       trim: true
     },
     phone: {
@@ -46,5 +47,8 @@ const appointmentSchema = new mongoose.Schema(
     timestamps: true
   }
 );
+
+appointmentSchema.index({ buyerEmail: 1, createdAt: -1 });
+appointmentSchema.index({ item: 1, appointmentDate: 1 });
 
 module.exports = mongoose.model("Appointment", appointmentSchema);

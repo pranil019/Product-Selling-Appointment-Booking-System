@@ -2,7 +2,10 @@ const Appointment = require("../models/Appointment");
 const Item = require("../models/Item");
 
 const createAppointment = async (req, res) => {
-  const item = await Item.findById(req.params.itemId);
+  const itemId = req.validated?.params?.itemId || req.params.itemId;
+  const body = req.validated?.body || req.body;
+
+  const item = await Item.findById(itemId);
 
   if (!item) {
     return res.status(404).render("pages/not-found", {
@@ -12,18 +15,21 @@ const createAppointment = async (req, res) => {
 
   await Appointment.create({
     item: item._id,
-    buyerName: req.body.buyerName,
-    buyerEmail: req.body.buyerEmail,
-    phone: req.body.phone,
-    appointmentDate: req.body.appointmentDate,
-    message: req.body.message
+    buyerName: body.buyerName,
+    buyerEmail: body.buyerEmail,
+    phone: body.phone,
+    appointmentDate: body.appointmentDate,
+    message: body.message
   });
 
-  res.redirect(`/buyer/dashboard?email=${encodeURIComponent(req.body.buyerEmail)}`);
+  res.redirect(`/buyer/dashboard?email=${encodeURIComponent(body.buyerEmail)}`);
 };
 
 const updateAppointmentStatus = async (req, res) => {
-  const appointment = await Appointment.findById(req.params.id).populate("item");
+  const id = req.validated?.params?.id || req.params.id;
+  const body = req.validated?.body || req.body;
+
+  const appointment = await Appointment.findById(id).populate("item");
 
   if (!appointment) {
     return res.status(404).render("pages/not-found", {
@@ -31,9 +37,9 @@ const updateAppointmentStatus = async (req, res) => {
     });
   }
 
-  await Appointment.findByIdAndUpdate(req.params.id, {
-    status: req.body.status,
-    sellerResponse: req.body.sellerResponse || ""
+  await Appointment.findByIdAndUpdate(id, {
+    status: body.status,
+    sellerResponse: body.sellerResponse || ""
   });
 
   const sellerEmail = appointment.item ? appointment.item.sellerEmail : "";

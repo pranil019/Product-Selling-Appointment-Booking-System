@@ -63,6 +63,7 @@ const itemSchema = new mongoose.Schema(
     sellerEmail: {
       type: String,
       required: true,
+      lowercase: true,
       trim: true
     },
     status: {
@@ -75,5 +76,8 @@ const itemSchema = new mongoose.Schema(
     timestamps: true
   }
 );
+
+itemSchema.index({ sellerEmail: 1, createdAt: -1 });
+itemSchema.index({ category: 1, status: 1, createdAt: -1 });
 
 module.exports = mongoose.model("Item", itemSchema);
